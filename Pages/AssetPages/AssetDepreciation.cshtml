@@ -1,0 +1,135 @@
+﻿@page
+@model TestModule.Pages.AssetPages.AssetDepreciationModel
+@{
+    ViewData["Title"] = "Asset Depreciation History";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="h3 mb-1 text-info">
+            <i class="fas fa-chart-line me-2"></i>Depreciation History
+        </h2>
+        <p class="text-muted mb-0">Depreciation records for asset: <strong>@Model.AssetCode</strong></p>
+        @if (Model.Asset != null)
+        {
+            <p class="text-muted">@Model.Asset.Description</p>
+        }
+    </div>
+    <div>
+        <a asp-page="Info" asp-route-code="@Model.AssetCode" class="btn btn-secondary action-btn">
+            <i class="fas fa-arrow-left me-1"></i> Back to Asset Info
+        </a>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-info text-white py-3">
+        <h5 class="mb-0">
+            <i class="fas fa-history me-2"></i>Depreciation History for @Model.AssetCode
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        @if (Model.DepreciationHistory.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th><i class="fas fa-calendar me-1"></i>Period</th>
+                            <th class="text-end"><i class="fas fa-percentage me-1"></i>Rate</th>
+                            <th class="text-end"><i class="fas fa-calculator me-1"></i>Depreciation Amount</th>
+                            <th class="text-end"><i class="fas fa-balance-scale me-1"></i>Book Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var entry in Model.DepreciationHistory)
+                        {
+                            <tr class="align-middle">
+                                <td class="fw-semibold">@entry.Period</td>
+                                <td class="text-end">
+                                    <span class="badge bg-primary rounded-pill px-2">
+                                        @(entry.DepreciationRate.ToString())
+                                    </span>
+                                </td>
+                                <td class="text-end fw-bold text-danger">@entry.DepreciationAmount.ToString("N2")</td>
+                                <td class="text-end fw-bold text-success">@entry.BookValue.ToString("N2")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <i class="fas fa-calculator fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">No depreciation history found</h5>
+                <p class="text-muted">This asset doesn't have any depreciation records yet.</p>
+            </div>
+        }
+    </div>
+    <div class="card-footer bg-light py-3">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <span class="text-muted">
+                    <i class="fas fa-database me-1"></i>Total records: @Model.DepreciationHistory.Count
+                </span>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <span class="text-muted small">
+                    <i class="fas fa-info-circle me-1"></i>As of: @DateTime.Now.ToString("dd MMM yyyy HH:mm")
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+        border-bottom: 2px solid #17a2b8 !important;
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(23, 162, 184, 0.08) !important;
+        transform: scale(1.01);
+        transition: all 0.2s ease;
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        border-bottom: 2px solid rgba(255,255,255,0.2) !important;
+        background: linear-gradient(135deg, #17a2b8 0%, #2c3e50 100%) !important;
+    }
+
+    .table-responsive {
+        border-radius: 0 0 15px 15px;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Add hover effects
+            $('.table').on('mouseenter', 'tr', function() {
+                $(this).addClass('shadow-sm');
+            }).on('mouseleave', 'tr', function() {
+                $(this).removeClass('shadow-sm');
+            });
+        });
+    </script>
+}

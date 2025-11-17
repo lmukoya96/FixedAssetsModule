@@ -1,0 +1,192 @@
+﻿@page
+@model TestModule.Pages.DepreciationPages.CreateModel
+@{
+    ViewData["Title"] = "Create Depreciation";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white py-3">
+                <h4 class="mb-0">
+                    <i class="fas fa-plus-circle me-2"></i>Create New Depreciation Method
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.Code" class="form-label fw-semibold">
+                                <i class="fas fa-hashtag me-1 text-muted"></i>Code
+                            </label>
+                            <input asp-for="Item.Code" class="form-control" placeholder="Enter unique method code" />
+                            <span asp-validation-for="Item.Code" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.Description" class="form-label fw-semibold">
+                                <i class="fas fa-file-alt me-1 text-muted"></i>Description
+                            </label>
+                            <input asp-for="Item.Description" class="form-control" placeholder="Enter method description" />
+                            <span asp-validation-for="Item.Description" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.DepreciationRate" class="form-label fw-semibold">
+                                <i class="fas fa-percentage me-1 text-muted"></i>Depreciation Rate (%)
+                            </label>
+                            <input asp-for="Item.DepreciationRate" type="number" step="0.01" class="form-control" placeholder="0.00" />
+                            <span asp-validation-for="Item.DepreciationRate" class="text-danger small"></span>
+                            <div class="form-text">Annual depreciation percentage rate</div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.DepreciationMethod" class="form-label fw-semibold">
+                                <i class="fas fa-cogs me-1 text-muted"></i>Depreciation Method
+                            </label>
+                            <input asp-for="Item.DepreciationMethod" class="form-control" placeholder="e.g., Straight-line, Declining balance" />
+                            <span asp-validation-for="Item.DepreciationMethod" class="text-danger small"></span>
+                            <div class="form-text">Method of depreciation calculation</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.TaxRate" class="form-label fw-semibold">
+                                <i class="fas fa-percent me-1 text-muted"></i>Tax Rate (%)
+                            </label>
+                            <input asp-for="Item.TaxRate" type="number" step="0.01" class="form-control" placeholder="0.00" />
+                            <span asp-validation-for="Item.TaxRate" class="text-danger small"></span>
+                            <div class="form-text">Tax depreciation rate if different</div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.TaxMethod" class="form-label fw-semibold">
+                                <i class="fas fa-calculator me-1 text-muted"></i>Tax Method
+                            </label>
+                            <input asp-for="Item.TaxMethod" class="form-control" placeholder="e.g., Standard, Accelerated" />
+                            <span asp-validation-for="Item.TaxMethod" class="text-danger small"></span>
+                            <div class="form-text">Tax method for depreciation</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 justify-content-end mt-4 pt-2 border-top">
+                        <a asp-page="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save me-1"></i>Create Depreciation Method
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+<style>
+    .form-control:focus {
+        border-color: #27ae60;
+        box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.25);
+    }
+    
+    .form-label {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+    
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+    }
+    
+    .btn {
+        border-radius: 8px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+    }
+    
+    .btn-success {
+        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        border: none;
+    }
+    
+    .btn-success:hover {
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+    }
+    
+    .btn-outline-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .bg-success {
+        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%) !important;
+    }
+    
+    .border-info {
+        border: 1px solid #17a2b8 !important;
+    }
+    
+    .bg-info {
+        background: linear-gradient(135deg, #17a2b8 0%, #2c3e50 100%) !important;
+    }
+    
+    .border-top {
+        border-color: #e9ecef !important;
+    }
+    
+    input[type="number"] {
+        text-align: right;
+    }
+    
+    .form-text {
+        font-size: 0.8rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Add validation styling
+            $('form').on('submit', function() {
+                $(this).addClass('was-validated');
+            });
+            
+            // Add focus effects
+            $('.form-control').focus(function() {
+                $(this).parent().addClass('focus-shadow');
+            }).blur(function() {
+                $(this).parent().removeClass('focus-shadow');
+            });
+            
+            // Format percentage inputs on blur
+            $('input[type="number"]').on('blur', function() {
+                if (this.value) {
+                    this.value = parseFloat(this.value).toFixed(2);
+                }
+            });
+            
+            // Suggest common methods
+            $('#Item_DepreciationMethod').on('focus', function() {
+                $(this).attr('list', 'depreciationMethods');
+            });
+            
+            $('#Item_TaxMethod').on('focus', function() {
+                $(this).attr('list', 'taxMethods');
+            });
+        });
+    </script>
+}

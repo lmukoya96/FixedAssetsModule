@@ -1,0 +1,282 @@
+﻿@page "{code}"
+@model TestModule.Pages.AssetGroupPages.DeleteModel
+@{
+    ViewData["Title"] = "Delete Asset Group";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card border-danger shadow-lg">
+            <div class="card-header bg-danger text-white py-3">
+                <h4 class="mb-0">
+                    <i class="fas fa-trash-alt me-2"></i>Delete Asset Group
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                @if (Model.Item is null)
+                {
+                    <div class="alert alert-danger d-flex align-items-center">
+                        <i class="fas fa-exclamation-circle me-3 fa-2x"></i>
+                        <div>
+                            <h5 class="alert-heading mb-1">Asset Group Not Found</h5>
+                            <p class="mb-0">The requested asset group could not be found in the system.</p>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a asp-page="Index" class="btn btn-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Asset Groups
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        <div class="d-flex">
+                            <i class="fas fa-exclamation-triangle me-3 fa-2x mt-1"></i>
+                            <div>
+                                <h5 class="alert-heading">Warning: This action cannot be undone!</h5>
+                                <p class="mb-0">You are about to permanently delete this asset group. This may affect asset records, financial reports, and depreciation calculations.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border rounded-3 p-4 mb-4 bg-light">
+                        <h5 class="text-danger mb-4">
+                            <i class="fas fa-layer-group me-2"></i>Asset Group Details
+                        </h5>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-hashtag me-1"></i>Group Code
+                                    </label>
+                                    <p class="fs-5 fw-bold text-dark">
+                                        <i class="fas fa-tag text-primary me-2"></i>@Model.Item.GroupCode
+                                    </p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-file-alt me-1"></i>Group Description
+                                    </label>
+                                    <p class="fs-5 fw-bold text-dark">
+                                        <i class="fas fa-align-left text-info me-2"></i>@Model.Item.GroupDescription
+                                    </p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-code me-1"></i>Depreciation Code
+                                    </label>
+                                    <p class="fs-5 fw-bold text-dark">
+                                        <i class="fas fa-calculator text-warning me-2"></i>@Model.Item.DepreciationCode
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-money-bill me-1"></i>Cost Account
+                                    </label>
+                                    <p class="fs-6 fw-bold text-success">@Model.Item.Cost</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-chart-line me-1"></i>Accumulated Depr
+                                    </label>
+                                    <p class="fs-6 fw-bold text-warning">@Model.Item.AccDeprn</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-calculator me-1"></i>Depreciation
+                                    </label>
+                                    <p class="fs-6 fw-bold text-primary">@Model.Item.Depreciation</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-sync-alt me-1"></i>Revaluation
+                                    </label>
+                                    <p class="fs-6 fw-bold text-info">@Model.Item.Revaluation</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-trash me-1"></i>Disposal
+                                    </label>
+                                    <p class="fs-6 fw-bold text-danger">@Model.Item.Disposal</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-ban me-1"></i>Scrapping
+                                    </label>
+                                    <p class="fs-6 fw-bold text-secondary">@Model.Item.Scrapping</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Impact Warning -->
+                        <div class="alert alert-danger mt-3">
+                            <div class="d-flex">
+                                <i class="fas fa-exclamation-circle me-3"></i>
+                                <div>
+                                    <h6 class="alert-heading mb-1">Critical Impact Warning</h6>
+                                    <p class="mb-0 small">Deleting this asset group may affect: Asset records, Depreciation calculations, Financial statements, Tax reporting, Historical data integrity</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form method="post">
+                        <div class="d-flex gap-3 justify-content-center mt-4 pt-3 border-top">
+                            <a asp-page="Index" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-danger btn-lg">
+                                <i class="fas fa-trash-alt me-2"></i>Confirm Delete
+                            </button>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 15px;
+        border-width: 2px;
+    }
+
+    .card-header {
+        border-radius: 13px 13px 0 0 !important;
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+    }
+
+    .btn-lg {
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        border-radius: 10px;
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        border: none;
+        box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+    }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(231, 76, 60, 0.4);
+        }
+
+    .btn-outline-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert {
+        border-radius: 10px;
+        border: none;
+    }
+
+    .alert-warning {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        border-left: 4px solid #f39c12;
+    }
+
+    .alert-danger {
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        border-left: 4px solid #e74c3c;
+    }
+
+    .bg-light {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    }
+
+    .border-top {
+        border-color: #e74c3c !important;
+    }
+
+    .text-danger {
+        color: #e74c3c !important;
+    }
+
+    .fs-5 {
+        font-size: 1.25rem !important;
+    }
+
+    .fs-6 {
+        font-size: 1rem !important;
+    }
+
+    /* Color coding for account values */
+    .text-success {
+        color: #28a745 !important;
+    }
+
+    .text-warning {
+        color: #ffc107 !important;
+    }
+
+    .text-primary {
+        color: #007bff !important;
+    }
+
+    .text-info {
+        color: #17a2b8 !important;
+    }
+
+    .text-danger {
+        color: #dc3545 !important;
+    }
+
+    .text-secondary {
+        color: #6c757d !important;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Add confirmation dialog for extra safety
+            $('form').on('submit', function(e) {
+                if (!confirm('⚠️ CRITICAL WARNING: ARE YOU ABSOLUTELY SURE?\n\nDeleting this asset group will permanently remove it from the system. This action may affect:\n• Asset records and depreciation calculations\n• Financial statements and reports\n• Tax compliance and reporting\n• Historical data integrity\n\nThis action cannot be undone!')) {
+                    e.preventDefault();
+                }
+            });
+
+            // Add pulse animation to delete button for emphasis
+            setInterval(function() {
+                $('.btn-danger').toggleClass('pulse');
+            }, 2000);
+        });
+    </script>
+}
+
+<style>
+    .pulse {
+        animation: pulse-animation 2s infinite;
+    }
+
+    @@keyframes pulse-animation {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+</style>

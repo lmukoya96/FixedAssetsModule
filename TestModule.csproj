@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\NewFolder\**" />
+    <Compile Remove="Pages\Depreciation\**" />
+    <Content Remove="Data\NewFolder\**" />
+    <Content Remove="Pages\Depreciation\**" />
+    <EmbeddedResource Remove="Data\NewFolder\**" />
+    <EmbeddedResource Remove="Pages\Depreciation\**" />
+    <None Remove="Data\NewFolder\**" />
+    <None Remove="Pages\Depreciation\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\DepreciationPreview.cs" />
+    <Compile Remove="Pages\LedgerPages\Indexcshtml.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\LedgerPages\Indexcshtml.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <PackageReference Include="MailKit" Version="4.13.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.1" />
+    <PackageReference Include="MimeKit" Version="4.13.0" />
+  </ItemGroup>
+
+</Project>

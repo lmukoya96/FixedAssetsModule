@@ -1,0 +1,177 @@
+@page "{period}/{year}"
+@model TestModule.Pages.PeriodPages.DeleteModel
+@{
+    ViewData["Title"] = "Delete Period";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-danger shadow-lg">
+            <div class="card-header bg-danger text-white py-3">
+                <h4 class="mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Delete Period
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                @if (Model.Item is null)
+                {
+                    <div class="alert alert-danger d-flex align-items-center">
+                        <i class="fas fa-times-circle me-3 fa-2x"></i>
+                        <div>
+                            <h5 class="alert-heading mb-1">Period Not Found</h5>
+                            <p class="mb-0">The requested period could not be found in the system.</p>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a asp-page="Index" class="btn btn-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Periods List
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        <div class="d-flex">
+                            <i class="fas fa-exclamation-circle me-3 fa-2x mt-1"></i>
+                            <div>
+                                <h5 class="alert-heading">Warning: This action cannot be undone!</h5>
+                                <p class="mb-0">You are about to permanently delete this period. This may affect related financial records.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border rounded-3 p-4 mb-4 bg-light">
+                        <h5 class="text-danger mb-4">
+                            <i class="fas fa-calendar-times me-2"></i>Period Details
+                        </h5>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-hashtag me-1"></i>Period Number
+                                    </label>
+                                    <p class="fs-5 fw-bold text-dark">@Model.Item.PeriodNum</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-calendar me-1"></i>Month
+                                    </label>
+                                    <p class="fs-5 fw-bold text-dark">@Model.Item.Month</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-calendar-check me-1"></i>Year
+                                    </label>
+                                    <p class="fs-5 fw-bold text-dark">@Model.Item.Year</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-play-circle me-1"></i>Start Date
+                                    </label>
+                                    <p class="fs-5 fw-bold text-dark">@Model.Item.StartDate.ToString("dd MMMM yyyy")</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-stop-circle me-1"></i>End Date
+                                    </label>
+                                    <p class="fs-5 fw-bold text-dark">@Model.Item.EndDate.ToString("dd MMMM yyyy")</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <i class="fas fa-star me-1"></i>Current Period
+                                    </label>
+                                    <p class="fs-5 fw-bold">
+                                        @if (Model.Item.IsCurrent)
+                                        {
+                                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                                <i class="fas fa-check-circle me-1"></i>Yes
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary rounded-pill px-3 py-2">
+                                                <i class="fas fa-times-circle me-1"></i>No
+                                            </span>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form method="post">
+                        <div class="d-flex gap-3 justify-content-center mt-4 pt-3 border-top">
+                            <a asp-page="Index" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-danger btn-lg">
+                                <i class="fas fa-trash-alt me-2"></i>Confirm Delete
+                            </button>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 15px;
+        border-width: 2px;
+    }
+
+    .card-header {
+        border-radius: 13px 13px 0 0 !important;
+    }
+
+    .btn-lg {
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        border-radius: 10px;
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        border: none;
+        box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+    }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(231, 76, 60, 0.4);
+        }
+
+    .btn-outline-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert {
+        border-radius: 10px;
+        border: none;
+    }
+
+    .alert-warning {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        border-left: 4px solid #f39c12;
+    }
+
+    .alert-danger {
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        border-left: 4px solid #e74c3c;
+    }
+
+    .bg-light {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    }
+</style>

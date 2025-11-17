@@ -1,0 +1,303 @@
+﻿@page
+@model TestModule.Pages.AssetPages.TransactionsModel
+@{
+    ViewData["Title"] = "All Transactions";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #17a2b8 !important;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            white-space: nowrap;
+        }
+
+        .table td {
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(23, 162, 184, 0.08) !important;
+            transform: scale(1.01);
+            transition: all 0.2s ease;
+        }
+
+        .btn-group .btn {
+            border-radius: 6px;
+            margin: 0 2px;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+        }
+
+            .btn-group .btn:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            border-bottom: 2px solid rgba(255,255,255,0.2) !important;
+            background: linear-gradient(135deg, #17a2b8 0%, #2c3e50 100%) !important;
+        }
+
+        .table-responsive {
+            border-radius: 0 0 15px 15px;
+            overflow-x: auto;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .text-end {
+            text-align: right !important;
+        }
+
+        /* Color coding for transaction types */
+        .transaction-purchase {
+            color: #28a745 !important;
+        }
+
+        .transaction-sale {
+            color: #dc3545 !important;
+        }
+
+        .transaction-depreciation {
+            color: #ffc107 !important;
+        }
+
+        .transaction-adjustment {
+            color: #17a2b8 !important;
+        }
+
+        .search-box {
+            max-width: 300px;
+        }
+
+        .amount-positive {
+            font-weight: 600;
+            color: #28a745;
+        }
+
+        .amount-negative {
+            font-weight: 600;
+            color: #dc3545;
+        }
+
+        .filter-active {
+            background-color: #17a2b8 !important;
+            color: white !important;
+            border-color: #17a2b8 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="h3 mb-1 text-primary">
+                    <i class="fas fa-exchange-alt me-2"></i>All Transactions
+                </h2>
+                <p class="text-muted mb-0">View and manage all asset transactions</p>
+            </div>
+            <div>
+                <a asp-page="Index" class="btn btn-secondary action-btn">
+                    <i class="fas fa-arrow-left me-1"></i> Back to Assets List
+                </a>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-table me-2"></i>Transaction History
+                    </h5>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th><i class="fas fa-calendar me-1"></i>Period</th>
+                                <th><i class="fas fa-file-alt me-1"></i>Description</th>
+                                <th><i class="fas fa-tag me-1"></i>Type</th>
+                                <th class="text-end"><i class="fas fa-money-bill me-1"></i>Amount</th>
+                                <th class="text-end"><i class="fas fa-dollar-sign me-1"></i>Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Items != null && Model.Items.Any())
+                            {
+                                @foreach (var item in Model.Items)
+                                {
+                                    <tr class="align-middle">
+                                        <td class="fw-semibold">@item.Period</td>
+                                        <td>@item.Description</td>
+                                        <td>
+                                            @{
+                                                var badgeClass = "bg-secondary";
+                                                if (item.TransactionType == "Purchase") badgeClass = "bg-success";
+                                                else if (item.TransactionType == "Sale") badgeClass = "bg-danger";
+                                                else if (item.TransactionType == "Depreciation") badgeClass = "bg-warning text-dark";
+                                                else if (item.TransactionType == "Adjustment") badgeClass = "bg-info";
+                                            }
+                                            <span class="badge @badgeClass">@item.TransactionType</span>
+                                        </td>
+                                        <td class="text-end @(item.Amount >= 0 ? "amount-positive" : "amount-negative")">
+                                            @item.Amount.ToString("C")
+                                        </td>
+                                        <td class="text-end fw-bold">@item.Cost.ToString("C")</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">
+                                        <i class="fas fa-exchange-alt fa-3x text-muted mb-3"></i>
+                                        <h4 class="text-muted">No Transactions Found</h4>
+                                        <p class="text-muted">Get started by creating your first transaction.</p>
+                                        <a asp-page="CreateTransaction" class="btn btn-primary mt-2">
+                                            <i class="fas fa-plus me-2"></i>Create First Transaction
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @if (Model.Items != null && Model.Items.Any())
+            {
+                <div class="card-footer bg-light py-3">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <span class="text-muted">
+                                <i class="fas fa-database me-1"></i>Showing @Model.Items.Count() of @Model.Items.Count() transactions
+                            </span>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <span class="text-muted small">
+                                <i class="fas fa-info-circle me-1"></i>Last updated: @DateTime.Now.ToString("dd MMM yyyy HH:mm")
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            @if (Model.Items != null && Model.Items.Any())
+            {
+                <div class="text-muted">
+                    <i class="fas fa-info-circle me-1"></i>Last updated: @DateTime.Now.ToString("dd MMM yyyy HH:mm")
+                </div>
+            }
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add interactivity
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.classList.add('shadow-sm');
+                });
+                row.addEventListener('mouseleave', function() {
+                    this.classList.remove('shadow-sm');
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keyup', function() {
+                    const value = this.value.toLowerCase();
+                    let visibleCount = 0;
+
+                    tableRows.forEach(row => {
+                        const text = row.textContent.toLowerCase();
+                        const isVisible = text.indexOf(value) > -1;
+                        row.style.display = isVisible ? '' : 'none';
+
+                        if (isVisible) visibleCount++;
+                    });
+
+                    // Update showing count if element exists
+                    const showingElement = document.querySelector('.card-footer .text-muted');
+                    if (showingElement) {
+                        showingElement.innerHTML = `<i class="fas fa-database me-1"></i>Showing ${visibleCount} of ${tableRows.length} transactions`;
+                    }
+                });
+            }
+
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const filterStatus = document.getElementById('filter-status');
+
+            if (filterButtons.length > 0 && filterStatus) {
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Update active button state
+                        filterButtons.forEach(btn => btn.classList.remove('filter-active'));
+                        this.classList.add('filter-active');
+
+                        const filter = this.getAttribute('data-filter');
+                        let visibleCount = 0;
+
+                        tableRows.forEach(row => {
+                            if (filter === 'all') {
+                                row.style.display = '';
+                                visibleCount++;
+                            } else {
+                                const typeElement = row.querySelector('td:nth-child(3)');
+                                if (typeElement) {
+                                    const type = typeElement.textContent;
+                                    const isVisible = type.includes(filter);
+                                    row.style.display = isVisible ? '' : 'none';
+                                    if (isVisible) visibleCount++;
+                                }
+                            }
+                        });
+
+                        filterStatus.textContent = `Showing ${filter === 'all' ? 'all' : filter} transactions`;
+
+                        // Update showing count if element exists
+                        const showingElement = document.querySelector('.card-footer .text-muted');
+                        if (showingElement) {
+                            showingElement.innerHTML = `<i class="fas fa-database me-1"></i>Showing ${visibleCount} of ${tableRows.length} transactions`;
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

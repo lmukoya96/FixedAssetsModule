@@ -1,0 +1,157 @@
+﻿@page
+@model TestModule.Pages.PeriodPages.IndexModel
+@{
+    ViewData["Title"] = "Periods Management";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="h3 mb-1 text-primary">
+            <i class="fas fa-calendar-alt me-2"></i>Periods
+        </h2>
+        <p class="text-muted mb-0">Manage accounting periods and their details</p>
+    </div>
+    <div>
+        <a asp-page="Create" class="btn btn-success">
+            <i class="fas fa-plus-circle me-2"></i>Create New Period
+        </a>
+        <a asp-page="/Index" class="btn btn-secondary action-btn">
+            <i class="fas fa-arrow-left me-1"></i> Back to Home
+        </a>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white py-3">
+        <h5 class="mb-0">
+            <i class="fas fa-list me-2"></i>Periods List
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th><i class="fas fa-hashtag me-1"></i>Period</th>
+                        <th><i class="fas fa-calendar me-1"></i>Month</th>
+                        <th><i class="fas fa-calendar-check me-1"></i>Year</th>
+                        <th><i class="fas fa-play-circle me-1"></i>Start Date</th>
+                        <th><i class="fas fa-stop-circle me-1"></i>End Date</th>
+                        <th><i class="fas fa-star me-1"></i>Current</th>
+                        <th class="text-center"><i class="fas fa-cogs me-1"></i>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr class="align-middle">
+                            <td class="fw-semibold">@item.PeriodNum</td>
+                            <td>@item.Month</td>
+                            <td>@item.Year</td>
+                            <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
+                            <td>@item.EndDate.ToString("dd-MM-yyyy")</td>
+                            <td>
+                                @if (item.IsCurrent)
+                                {
+                                    <span class="badge bg-success rounded-pill px-3 py-2">
+                                        <i class="fas fa-check-circle me-1"></i>Current
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary rounded-pill px-3 py-2">
+                                        <i class="fas fa-times-circle me-1"></i>No
+                                    </span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <a asp-page="Edit" asp-route-period="@item.PeriodNum" asp-route-year="@item.Year"
+                                       class="btn btn-outline-primary btn-sm" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a asp-page="Delete" asp-route-period="@item.PeriodNum" asp-route-year="@item.Year"
+                                       class="btn btn-outline-danger btn-sm" title="Delete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer bg-light py-3">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <span class="text-muted">
+                    <i class="fas fa-database me-1"></i>Total: @Model.Items.Count() period(s)
+                </span>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <span class="text-muted small">
+                    <i class="fas fa-info-circle me-1"></i>Last updated: @DateTime.Now.ToString("dd MMM yyyy HH:mm")
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+        border-bottom: 2px solid #3498db !important;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(52, 152, 219, 0.08) !important;
+        transform: scale(1.01);
+        transition: all 0.2s ease;
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .btn-group .btn {
+        border-radius: 6px;
+        margin: 0 2px;
+        padding: 0.4rem 0.8rem;
+    }
+
+        .btn-group .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        border-bottom: 2px solid rgba(255,255,255,0.2) !important;
+    }
+
+    .table-responsive {
+        border-radius: 0 0 15px 15px;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        // Add some simple interactivity
+        $(document).ready(function() {
+            $('.table').on('mouseenter', 'tr', function() {
+                $(this).addClass('shadow-sm');
+            }).on('mouseleave', 'tr', function() {
+                $(this).removeClass('shadow-sm');
+            });
+        });
+    </script>
+}

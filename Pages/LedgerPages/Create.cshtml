@@ -1,0 +1,133 @@
+﻿@page
+@model TestModule.Pages.LedgerPages.CreateModel
+@{
+    ViewData["Title"] = "Create Ledger Entry";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white py-3">
+                <h4 class="mb-0">
+                    <i class="fas fa-book me-2"></i>Create New Ledger Entry
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.Code" class="form-label fw-semibold">
+                                <i class="fas fa-code me-1 text-muted"></i>Ledger Code
+                            </label>
+                            <input asp-for="Item.Code" class="form-control" placeholder="Enter ledger code" />
+                            <span asp-validation-for="Item.Code" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.Account" class="form-label fw-semibold">
+                                <i class="fas fa-wallet me-1 text-muted"></i>Account
+                            </label>
+                            <input asp-for="Item.Account" class="form-control" placeholder="Enter account number" />
+                            <span asp-validation-for="Item.Account" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.Description" class="form-label fw-semibold">
+                                <i class="fas fa-file-alt me-1 text-muted"></i>Description
+                            </label>
+                            <input asp-for="Item.Description" class="form-control" placeholder="Enter description" />
+                            <span asp-validation-for="Item.Description" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.SubAccount" class="form-label fw-semibold">
+                                <i class="fas fa-calculator me-1 text-muted"></i>Account Depreciation
+                            </label>
+                            <input asp-for="Item.SubAccount" class="form-control" placeholder="Enter sub-account" />
+                            <span asp-validation-for="Item.SubAccount" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 justify-content-end mt-4 pt-2 border-top">
+                        <a asp-page="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save me-1"></i>Create Ledger Entry
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+<style>
+    .form-control:focus {
+        border-color: #27ae60;
+        box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.25);
+    }
+
+    .form-label {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%) !important;
+    }
+
+    .btn {
+        border-radius: 8px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        border: none;
+    }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+        }
+
+    .btn-outline-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .border-top {
+        border-color: #e9ecef !important;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Add validation styling
+            $('form').on('submit', function() {
+                $(this).addClass('was-validated');
+            });
+
+            // Add focus effects
+            $('.form-control').focus(function() {
+                $(this).parent().addClass('focus-shadow');
+            }).blur(function() {
+                $(this).parent().removeClass('focus-shadow');
+            });
+        });
+    </script>
+}

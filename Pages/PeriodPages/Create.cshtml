@@ -1,0 +1,129 @@
+﻿@page
+@model TestModule.Pages.PeriodPages.CreateModel
+@{
+    ViewData["Title"] = "Create Period";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white py-3">
+                <h4 class="mb-0">
+                    <i class="fas fa-calendar-plus me-2"></i>Create New Period
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.PeriodNum" class="form-label fw-semibold">
+                                <i class="fas fa-hashtag me-1 text-muted"></i>Period Number
+                            </label>
+                            <input asp-for="Item.PeriodNum" class="form-control" placeholder="Enter period number" />
+                            <span asp-validation-for="Item.PeriodNum" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.Month" class="form-label fw-semibold">
+                                <i class="fas fa-calendar me-1 text-muted"></i>Month
+                            </label>
+                            <input asp-for="Item.Month" class="form-control" placeholder="Enter month" />
+                            <span asp-validation-for="Item.Month" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.Year" class="form-label fw-semibold">
+                                <i class="fas fa-calendar-alt me-1 text-muted"></i>Year
+                            </label>
+                            <input asp-for="Item.Year" class="form-control" placeholder="Enter year" />
+                            <span asp-validation-for="Item.Year" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.StartDate" class="form-label fw-semibold">
+                                <i class="fas fa-play-circle me-1 text-muted"></i>Start Date
+                            </label>
+                            <input asp-for="Item.StartDate" type="date" class="form-control" />
+                            <span asp-validation-for="Item.StartDate" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.EndDate" class="form-label fw-semibold">
+                                <i class="fas fa-stop-circle me-1 text-muted"></i>End Date
+                            </label>
+                            <input asp-for="Item.EndDate" type="date" class="form-control" />
+                            <span asp-validation-for="Item.EndDate" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check form-switch mt-4 pt-2">
+                                <input asp-for="Item.IsCurrent" class="form-check-input" type="checkbox" role="switch" />
+                                <label asp-for="Item.IsCurrent" class="form-check-label fw-semibold">
+                                    <i class="fas fa-star me-1 text-warning"></i>Set as Current Period
+                                </label>
+                            </div>
+                            <span asp-validation-for="Item.IsCurrent" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 justify-content-end mt-4 pt-2 border-top">
+                        <a asp-page="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save me-1"></i>Create Period
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+<style>
+    .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+
+    .form-label {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+    }
+
+    .btn {
+        border-radius: 8px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        border: none;
+    }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            transform: translateY(-2px);
+        }
+
+    .form-switch .form-check-input:checked {
+        background-color: #27ae60;
+        border-color: #27ae60;
+    }
+</style>

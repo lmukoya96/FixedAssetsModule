@@ -1,0 +1,307 @@
+@page
+@model TestModule.Pages.AssetPages.CreateModel
+@{
+    ViewData["Title"] = "Create Asset";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white py-3">
+                <h4 class="mb-0">
+                    <i class="fas fa-plus-circle me-2"></i>Create New Asset
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" class="needs-validation" novalidate>
+                    <!-- Basic Information Section -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-info-circle me-2"></i>Basic Information
+                            </h5>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.Code" class="form-label fw-semibold">
+                                <i class="fas fa-hashtag me-1 text-muted"></i>Asset Code
+                            </label>
+                            <input asp-for="Item.Code" class="form-control" placeholder="e.g., LAPTOP-001, DESK-101, VEH-202" />
+                            <span asp-validation-for="Item.Code" class="text-danger small"></span>
+                            <div class="form-text">Unique identifier for the asset</div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.Description" class="form-label fw-semibold">
+                                <i class="fas fa-file-alt me-1 text-muted"></i>Description
+                            </label>
+                            <input asp-for="Item.Description" class="form-control" placeholder="e.g., Dell Laptop, Executive Desk, Company Van" />
+                            <span asp-validation-for="Item.Description" class="text-danger small"></span>
+                            <div class="form-text">Descriptive name for the asset</div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.Location" class="form-label fw-semibold">
+                                <i class="fas fa-map-marker-alt me-1 text-muted"></i>Location
+                            </label>
+                            <input asp-for="Item.Location" class="form-control" placeholder="e.g., Floor 3, Office 302, Warehouse B" />
+                            <span asp-validation-for="Item.Location" class="text-danger small"></span>
+                            <div class="form-text">Physical location of the asset</div>
+                        </div>
+                    </div>
+
+                    <!-- Classification Section -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-tags me-2"></i>Classification
+                            </h5>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Item.AssetGroup" class="form-label fw-semibold">
+                                <i class="fas fa-layer-group me-1 text-muted"></i>Asset Group
+                            </label>
+                            <select asp-for="Item.AssetGroup" class="form-select" asp-items="Model.AssetGroups">
+                                <option value="">-- Select Group --</option>
+                            </select>
+                            <span asp-validation-for="Item.AssetGroup" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Item.AssetCategory" class="form-label fw-semibold">
+                                <i class="fas fa-tag me-1 text-muted"></i>Asset Category
+                            </label>
+                            <select asp-for="Item.AssetCategory" class="form-select" asp-items="Model.AssetCategories">
+                                <option value="">-- Select Category --</option>
+                            </select>
+                            <span asp-validation-for="Item.AssetCategory" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Item.Department" class="form-label fw-semibold">
+                                <i class="fas fa-building me-1 text-muted"></i>Department
+                            </label>
+                            <select asp-for="Item.Department" class="form-select" asp-items="Model.Departments">
+                                <option value="">-- Select Department --</option>
+                            </select>
+                            <span asp-validation-for="Item.Department" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <!-- Dates Section -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-calendar-alt me-2"></i>Dates
+                            </h5>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Item.PurchaseDate" class="form-label fw-semibold">
+                                <i class="fas fa-shopping-cart me-1 text-muted"></i>Purchase Date
+                            </label>
+                            <input asp-for="Item.PurchaseDate" type="date" class="form-control" />
+                            <span asp-validation-for="Item.PurchaseDate" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Item.DepreciationStartDate" class="form-label fw-semibold">
+                                <i class="fas fa-calculator me-1 text-muted"></i>Depreciation Start
+                            </label>
+                            <input asp-for="Item.DepreciationStartDate" type="date" class="form-control" />
+                            <span asp-validation-for="Item.DepreciationStartDate" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Item.TransactionDate" class="form-label fw-semibold">
+                                <i class="fas fa-exchange-alt me-1 text-muted"></i>Transaction Date
+                            </label>
+                            <input asp-for="Item.TransactionDate" type="date" class="form-control" readonly />
+                            <input type="hidden" asp-for="Item.TransactionDate" />
+                            <span asp-validation-for="Item.TransactionDate" class="text-danger small"></span>
+                            <div class="form-text">Set automatically by system</div>
+                        </div>
+                    </div>
+
+                    <!-- Financial Information -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-money-bill-wave me-2"></i>Financial Information
+                            </h5>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.PurchaseAmount" class="form-label fw-semibold">
+                                <i class="fas fa-receipt me-1 text-muted"></i>Purchase Amount
+                            </label>
+                            <input asp-for="Item.PurchaseAmount" type="number" step="0.01" class="form-control" placeholder="0.00" id="purchaseAmount" />
+                            <span asp-validation-for="Item.PurchaseAmount" class="text-danger small"></span>
+                            <div class="form-text">Original purchase price</div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.Cost" class="form-label fw-semibold">
+                                <i class="fas fa-dollar-sign me-1 text-muted"></i>Current Cost
+                            </label>
+                            <input asp-for="Item.Cost" type="number" step="0.01" class="form-control" id="cost" readonly />
+                            <input type="hidden" asp-for="Item.Cost" id="hiddenCost" />
+                            <span asp-validation-for="Item.Cost" class="text-danger small"></span>
+                            <div class="form-text">Current book value</div>
+                        </div>
+                    </div>
+
+                    <!-- Identification Section -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-fingerprint me-2"></i>Identification
+                            </h5>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.TrackingCode" class="form-label fw-semibold">
+                                <i class="fas fa-barcode me-1 text-muted"></i>Tracking Code
+                            </label>
+                            <input asp-for="Item.TrackingCode" class="form-control" placeholder="e.g., TRK-12345, RFID-67890" />
+                            <span asp-validation-for="Item.TrackingCode" class="text-danger small"></span>
+                            <div class="form-text">Unique tracking identifier</div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Item.SerialNumber" class="form-label fw-semibold">
+                                <i class="fas fa-microchip me-1 text-muted"></i>Serial Number
+                            </label>
+                            <input asp-for="Item.SerialNumber" class="form-control" placeholder="e.g., SN123456789, S/N:ABCDEF123" />
+                            <span asp-validation-for="Item.SerialNumber" class="text-danger small"></span>
+                            <div class="form-text">Manufacturer's serial number</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 justify-content-end mt-4 pt-2 border-top">
+                        <a asp-page="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save me-1"></i>Create Asset
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+<style>
+    .form-control:focus, .form-select:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    }
+
+    .form-label {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+    }
+
+    .btn {
+        border-radius: 8px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        border: none;
+    }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #20c997 0%, #28a745 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+        }
+
+    .btn-outline-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .bg-success {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+    }
+
+    .border-info {
+        border: 1px solid #17a2b8 !important;
+    }
+
+    .bg-info {
+        background: linear-gradient(135deg, #17a2b8 0%, #2c3e50 100%) !important;
+    }
+
+    .border-top {
+        border-color: #e9ecef !important;
+    }
+
+    .form-text {
+        font-size: 0.8rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+    }
+
+    h5.text-primary {
+        color: #2c3e50 !important;
+        font-weight: 600;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 0.5rem;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Add validation styling
+            $('form').on('submit', function() {
+                $(this).addClass('was-validated');
+            });
+
+            // Add focus effects
+            $('.form-control, .form-select').focus(function() {
+                $(this).parent().addClass('focus-shadow');
+            }).blur(function() {
+                $(this).parent().removeClass('focus-shadow');
+            });
+
+            // Auto-format asset code to uppercase
+            $('#Item_Code').on('blur', function() {
+                this.value = this.value.toUpperCase();
+            });
+
+            // Set default dates if empty
+            $('#Item_PurchaseDate').on('change', function() {
+                if (!$('#Item_DepreciationStartDate').val()) {
+                    $('#Item_DepreciationStartDate').val(this.value);
+                }
+            });
+
+            // Auto-format financial numbers
+            $('input[type="number"]').on('blur', function() {
+                if (this.value) {
+                    this.value = parseFloat(this.value).toFixed(2);
+                }
+            });
+
+            // Mirror PurchaseAmount -> Cost
+            $('#purchaseAmount').on('input', function () {
+                let val = $(this).val();
+                $('#cost').val(val);
+                $('#hiddenCost').val(val); // ensures it's posted to backend
+            });
+        });
+    </script>
+}

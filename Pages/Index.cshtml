@@ -1,0 +1,279 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Test Module Dashboard";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            background: white;
+        }
+
+            .dashboard-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 1rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #2980b9 100%);
+            color: white;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-departments .card-icon {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+        }
+
+        .card-categories .card-icon {
+            background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+        }
+
+        .card-groups .card-icon {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        }
+
+        .card-assets .card-icon {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        }
+
+        .card-depreciation .card-icon {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        .card-ledger .card-icon {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        }
+
+        .card-periods .card-icon {
+            background: linear-gradient(135deg, #7f8c8d 0%, #95a5a6 100%);
+        }
+
+        .card-privacy .card-icon {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .btn-card {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #2980b9 100%);
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1.5rem;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+            .btn-card:hover {
+                background: linear-gradient(135deg, #2980b9 0%, var(--secondary-color) 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                color: white;
+            }
+
+        .stats-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .welcome-text {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+
+        <!-- Dashboard Cards -->
+        <div class="row g-4">
+            <!-- Departments Card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card card-departments">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3 class="card-title">Departments</h3>
+                        <p class="card-text">Manage organizational departments and their asset allocations</p>
+                        <a asp-page="/DepartmentPages/Index" class="btn btn-card mt-3">Manage Departments</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset Categories Card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card card-categories">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h3 class="card-title">Asset Categories</h3>
+                        <p class="card-text">Organize assets into categories for better management</p>
+                        <a asp-page="/AssetCategories/Index" class="btn btn-card mt-3">Manage Categories</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset Groups Card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card card-groups">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h3 class="card-title">Asset Groups</h3>
+                        <p class="card-text">Group assets for collective management and reporting</p>
+                        <a asp-page="/AssetGroupPages/Index" class="btn btn-card mt-3">Manage Groups</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assets Card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card card-assets">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <h3 class="card-title">Assets</h3>
+                        <p class="card-text">View and manage all company assets and their details</p>
+                        <a asp-page="/AssetPages/Index" class="btn btn-card mt-3">Manage Assets</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Depreciation Card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card card-depreciation">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3 class="card-title">Depreciation</h3>
+                        <p class="card-text">Calculate and manage asset depreciation over time</p>
+                        <a asp-page="/DepreciationPages/Index" class="btn btn-card mt-3">Manage Depreciation</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ledger Card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card card-ledger">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="card-title">Ledger</h3>
+                        <p class="card-text">Access financial records and transaction history</p>
+                        <a asp-page="/LedgerPages/Index" class="btn btn-card mt-3">View Ledger</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Periods Card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card card-periods">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <h3 class="card-title">Periods</h3>
+                        <p class="card-text">Manage accounting periods and reporting cycles</p>
+                        <a asp-page="/PeriodPages/Index" class="btn btn-card mt-3">Manage Periods</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy Card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card card-privacy">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="card-title">Privacy</h3>
+                        <p class="card-text">Review our privacy policy and data protection measures</p>
+                        <a asp-page="/Privacy" class="btn btn-card mt-3">View Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>W
